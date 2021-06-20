@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Weather from './components/Weather';
 
 // useState & useEffect are Hooks. With Hooks we can use state and other React features without writing a class
 
@@ -46,9 +47,14 @@ function App() {
 
   return (
     <div className="App">
-      <p>Your latitude is {lat}</p>
-      <p>Your longitude is {lon}</p>
-      {/* <p>How is the weather? {data}</p> */}
+    {/* since the return statement is rendered before our API call including the below check will assure that we don't get an error message and show an empty div instead */}
+      {(typeof data.main != 'undefined') ? (
+        <Weather weatherData={data} />
+      ) : (
+        <div></div>
+      )}
+
+
     </div>
   );
 }
