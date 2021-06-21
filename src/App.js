@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Weather from './components/Weather';
 
-// useState is a Hook. With Hooks we can use state and other React features without writing a class
+/* 
+- useState & useEffect are Hooks 
+- With Hooks we can use state and other React features without writing a class */
 
 function App() {
   /* 
@@ -20,7 +22,7 @@ function App() {
           let lon = position.coords.longitude;
           const api = `${process.env.REACT_APP_API_URL}/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
 
-              /* 
+      /* 
       - fetch() method is used to fetch resources asynchronously across the network
       - the simplest use of fetch() takes one argument, the path to the resource we want to fetch and returns a promise containing the response
       - json() method returns a promise which takes JSON as input and resolves to a JavaScript object
@@ -38,14 +40,21 @@ function App() {
     } 
   }
 
+  /* 
+  - by using useEffect Hook, we tell React that our components needs to do something after render
+  - in this case, we're telling React to call the fetchData function on each render, including the first one  
+  */
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
-      <button onClick={fetchData}>Click to get data!</button>
       {/* since the return statement is rendered before our API call including the below check will assure that we don't get an error message and show an empty div instead */}
       {(typeof data.main !== 'undefined') ? (
         <Weather weatherData={data} />
       ) : (
-        <div>Please allow location to check your current weather</div>
+        <div></div>
       )}
 
 
