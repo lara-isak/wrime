@@ -51,7 +51,7 @@ function App() {
       {(typeof data.main != 'undefined') ? (
         <Weather weatherData={data} />
       ) : (
-        <div></div>
+        <div>Data is loading... Just a moment!</div>
       )}
 
 
