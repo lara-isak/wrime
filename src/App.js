@@ -11,58 +11,60 @@ function App() {
   - data state is storing all the data from the OpenWeatherAPI call
   */
   const [data, setData] = useState([]);
-
-  const fetchData = () => {
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  /* 
+  - by using useEffect Hook, we tell React that our components needs to do something after render
+  - the empty deps array [] means this useEffect will run once, similar to componentDidMount()
+  */
+  useEffect(() => {
     /* 
     - navigator.geolocation is a property of the Navigator object
     - navigator.geolocation obtains the Geolocation object which is able to obtain the position of the device using the getCurrentPosition method 
     */
-    if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-          let lat = position.coords.latitude;
-          let lon = position.coords.longitude;
-          const api = `${process.env.REACT_APP_API_URL}/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
-
+    navigator.geolocation.getCurrentPosition(position => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const api = `${process.env.REACT_APP_API_URL}/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
       /* 
       - fetch() method is used to fetch resources asynchronously across the network
       - the simplest use of fetch() takes one argument, the path to the resource we want to fetch and returns a promise containing the response
       - json() method returns a promise which takes JSON as input and resolves to a JavaScript object
       - process.env property is used to read environment variables
       */
-        fetch(api)
-        .then(resolve => {
-          return resolve.json();
-        })
-        .then(result => {
+      fetch(api)
+      .then(res => res.json())
+      .then(
+        (result) => {
           setData(result);
-          console.log(result);
-        })
-      });
-    } 
-  }
+          setIsLoaded(true);
+        },
+        (error) => {
+          setError(error);
+          setIsLoaded(true);
+        }
+      )
+    });
 
-  /* 
-  - by using useEffect Hook, we tell React that our components needs to do something after render
-  - in this case, we're telling React to call the fetchData function on each render, including the first one  
-  */
-  useEffect(() => {
-    fetchData();
-  }, []);
+  }, [])
 
   return (
+    /* 
+    - since the return statement is rendered before our API call including the below check will assure that we don't get the React error message before the data is set and passed to the Weather component
+    - instead we will show Dimmer module and Loader element, courtasy of Semantic UI React
+    */
     <div className="App">
-      {/* since the return statement is rendered before our API call including the below check will assure that we don't get an error message and show an empty div instead */}
-      {(typeof data.main !== 'undefined') ? (
-        <Weather weatherData={data} />
-      ) : (
+      {(error) ? (
+        <div>Error: {error.message}</div>
+      ) : (!isLoaded) ? (
         <div>
-        <Dimmer active>
-          <Loader>Loading...</Loader>
-        </Dimmer>
+          <Dimmer active>
+            <Loader>Loading...</Loader>
+          </Dimmer>
         </div>
+      ) : (
+        <Weather weatherData={data} />
       )}
-
-
     </div>
   );
 }
