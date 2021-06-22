@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Weather from './components/Weather';
+import Weather from '../Weather/index';
 import { Dimmer, Loader } from 'semantic-ui-react';
 
 /* 
