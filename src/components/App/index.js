@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Weather from '../Weather/index';
+import Mood from '../Mood/index';
 import { Dimmer, Loader } from 'semantic-ui-react';
 
 /* 
@@ -65,6 +66,7 @@ function App() {
       ) : (
         <Weather weatherData={data} />
       )}
+      <Mood />
     </div>
   );
 }
