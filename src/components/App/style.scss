@@ -1,0 +1,10 @@
+$background-color: #F5A962;
+
+body {
+  background-color: $background-color;
+}
+
+.App {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Weather from '../Weather/index';
 import Mood from '../Mood/index';
-import { Dimmer, Loader } from 'semantic-ui-react';
+import './style.scss';
 
 /* 
 - useState & useEffect are Hooks 
@@ -59,9 +59,7 @@ function App() {
         <div>Error: {error.message}</div>
       ) : (!isLoaded) ? (
         <div>
-          <Dimmer active>
-            <Loader>Loading...</Loader>
-          </Dimmer>
+          Loading...
         </div>
       ) : (
         <Weather weatherData={data} />
