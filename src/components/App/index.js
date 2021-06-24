@@ -64,7 +64,7 @@ function App() {
       ) : (
         <Weather weatherData={data} />
       )}
-      <Mood />
+      <Playlist />
     </div>
   );
 }
