@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Weather from '../Weather/index';
-import Mood from '../Mood/index';
+import Playlist from '../Playlist/index';
 import './style.scss';
 
 /* 
