@@ -26,7 +26,7 @@ function App() {
     navigator.geolocation.getCurrentPosition(position => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-      const api = `${process.env.REACT_APP_API_URL}/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
+      const api = `${process.env.REACT_APP_WEATHER_API_URL}/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`;
       /* 
       - fetch() method is used to fetch resources asynchronously across the network
       - the simplest use of fetch() takes one argument, the path to the resource we want to fetch and returns a promise containing the response
