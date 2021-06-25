@@ -38,6 +38,7 @@ function App() {
       .then(
         (result) => {
           setData(result);
+          console.log(result);
           setIsLoaded(true);
         },
         (error) => {
@@ -62,9 +63,11 @@ function App() {
           Loading...
         </div>
       ) : (
-        <Weather weatherData={data} />
-      )}
-        <Playlist weatherData={data} />
+        <div className="appComponents">
+          <Weather weatherData={data} />
+          <Playlist weatherData={data} />
+        </div>
+      )}        
     </div>
   );
 }

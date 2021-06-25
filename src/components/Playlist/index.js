@@ -4,11 +4,10 @@ import './style.scss';
 const PlaylistContainer = ({weatherData}) => {
   return(
     <div className="playlistContainer">
-      {/* <h1>moodify</h1>
-      <h2>Soul food for every mood</h2> */}
       <input type="text" name="mood" id="" />
       <button>Click me!</button>
-      <h1>{weatherData.name}</h1>
+      <h2>It seems that the weather is {weatherData.weather[0].main} at your current location.</h2>
+      <h3>Here are some playlists to accomodate the weather:</h3>
     </div>
   )
 };
